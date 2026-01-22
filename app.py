@@ -1,19 +1,21 @@
 import streamlit as st
 import os, requests
+
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
+
 from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
 # ---------------------------------------------------
 # FORCE EARLY RENDER (CRITICAL FOR STREAMLIT CLOUD)
 # ---------------------------------------------------
-st.write("")  # prevents healthz failure
+st.write("")  # prevents /healthz failure
 
 # ---------------------------------------------------
-# MAIN APP (CLOUD SAFE)
+# MAIN APP
 # ---------------------------------------------------
 def main():
 
@@ -89,7 +91,7 @@ def main():
     ])
 
     # =================================================
-    # 🔍 RESEARCH TAB (BUTTON-GUARDED)
+    # 🔍 RESEARCH TAB (ArXiv)
     # =================================================
     with tab1:
         st.subheader("🔬 AI-Powered Research Assistant")
@@ -108,7 +110,6 @@ def main():
             paper_count = st.slider("ArXiv Papers", 5, 30, 15)
 
         if st.button("🚀 Run Research"):
-
             if not research_query.strip():
                 st.warning("⚠ Please enter a research query")
                 st.stop()
@@ -165,7 +166,7 @@ Research Content:
                 st.markdown(f"📄 **{p['title']}**")
 
     # =================================================
-    # 💬 ASK QUESTIONS TAB (RAG)
+    # 💬 ASK QUESTIONS TAB (PDF RAG)
     # =================================================
     with tab2:
         st.subheader("💬 Ask Medical Questions")
@@ -203,7 +204,7 @@ Research Content:
                 st.session_state.chat_history.append(("assistant", answer))
 
     # =================================================
-    # 📄 UPLOAD PDFs TAB (SAFE)
+    # 📄 UPLOAD PDFs TAB
     # =================================================
     with tab3:
         st.subheader("📂 Upload Medical Research PDFs")
@@ -243,7 +244,7 @@ Research Content:
 
 
 # ---------------------------------------------------
-# ENTRY POINT (CRITICAL FOR CLOUD)
+# ENTRY POINT
 # ---------------------------------------------------
 if __name__ == "__main__":
     main()
