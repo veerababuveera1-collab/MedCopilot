@@ -4,7 +4,7 @@ import os, requests
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain.chains import RetrievalQA
+from langchain_community.chains import RetrievalQA
 
 from pypdf import PdfReader
 from pypdf.errors import PdfReadError
