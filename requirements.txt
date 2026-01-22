@@ -1,8 +1,11 @@
 streamlit
-langchain==0.1.20
+langchain
 langchain-community
 langchain-openai
 openai
 faiss-cpu
 pypdf
-tiktoken
+requests
+numpy
+pandas
+torch
